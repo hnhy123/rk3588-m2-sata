@@ -51,7 +51,7 @@ M.2 B-key（Socket 2）规范里，**SATA 和 PCIe lane0 复用同一组物理�
 ```
 rk3588-m2-sata/
 ├── README.md                     # 本文件
-├── QUICKSTART.md                 # 给同事的三步速查
+├── QUICKSTART.md                 # 三步速查
 ├── VERSION
 ├── MANIFEST.sha256
 ├── scripts/
