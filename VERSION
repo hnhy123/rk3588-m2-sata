@@ -1,0 +1,6 @@
+rk3588-m2-sata v1.0
+
+date          : 2026-11-22
+board         : Really TVI2340R RK3588 Live Streaming Box
+kernel tested : 7.3.5-edge-rockchip64 #75 (SMP PREEMPT, 2026-11-17)
+flash result  : LITEON CV3-8D512-11 512GB SATA, 6.0 Gbps -> /dev/sda

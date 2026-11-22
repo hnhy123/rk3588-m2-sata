@@ -1,0 +1,28 @@
+#!/bin/bash
+# Example Armbian build hook: userpatches/customize-image.sh
+# It bakes the SATA switch into the generated image.
+#
+# 1) Put this file at <build>/userpatches/customize-image.sh (chmod +x)
+# 2) Make sure the kernel is built with patches/kernel-config-ata.fragment
+#    (CONFIG_ATA=y + CONFIG_AHCI_DWC=y) - or ship the modules and keep the
+#    modules-load part below.
+set -e
+
+ENV=/boot/armbianEnv.txt
+if [ -f "$ENV" ]; then
+	if grep -q '^overlays=' "$ENV"; then
+		grep -q 'sata2' "$ENV" || sed -i 's/^overlays=.*/& sata2/' "$ENV"
+	else
+		echo 'overlays=sata2' >> "$ENV"
+	fi
+	echo "[customize] enabled sata2 overlay"
+fi
+
+# Only needed when CONFIG_ATA=m (modules) instead of =y (built-in).
+CFG=$(ls /boot/config-* 2>/dev/null | head -1 || true)
+if [ -n "$CFG" ] && ! grep -q '^CONFIG_ATA=y' "$CFG"; then
+	printf 'libata\nahci_dwc\n' > /etc/modules-load.d/sata-ahci.conf
+	echo "[customize] libata/ahci_dwc will load at boot"
+fi
+
+exit 0

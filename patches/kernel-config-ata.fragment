@@ -1,0 +1,14 @@
+# Merge into the kernel .config when building the firmware.
+# Use =y to build SATA into the kernel (recommended for a firmware image),
+# or =m to keep it as modules (then ship libata/ahci_dwc and load them).
+#
+# These options are what the RK3588 SATA block needs:
+#   ATA         - libata core (SATA/AHCI framework)
+#   AHCI_DWC    - Synopsys DWC AHCI driver, matches
+#                 compatible = "rockchip,rk3588-dwc-ahci", "snps,dwc-ahci"
+#   SATA_PMP    - libahci references port-multiplier helpers
+#   ATA_SFF     - legacy SFF helpers used by libata
+CONFIG_ATA=y
+CONFIG_AHCI_DWC=y
+CONFIG_SATA_PMP=y
+CONFIG_ATA_SFF=y

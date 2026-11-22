@@ -1,0 +1,31 @@
+// M.2 B-key slot on the Really TVI2340R: switch pcie2x1l1 -> sata2.
+// Both controllers share combphy2_psu (phy@fee20000), so only the PHY mode
+// changes; the B-key connector pins are shared between PCIe lane0 and SATA.
+//
+// This is equivalent to Armbian's prebuilt
+//   /boot/dtb/rockchip/overlay/rockchip-rk3588-sata2.dtbo
+// and is provided for boards/images that lack that overlay.
+//
+// Build:
+//   dtc -@ -I dts -O dtb -o sata2.dtbo sata2.dtso
+// Install:
+//   cp sata2.dtbo /boot/overlay-user/sata2.dtbo
+//   echo 'overlays=sata2' >> /boot/armbianEnv.txt
+/dts-v1/;
+/plugin/;
+
+/ {
+	fragment@0 {
+		target = <&pcie2x1l1>;
+		__overlay__ {
+			status = "disabled";
+		};
+	};
+
+	fragment@1 {
+		target = <&sata2>;
+		__overlay__ {
+			status = "okay";
+		};
+	};
+};
