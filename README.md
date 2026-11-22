@@ -178,6 +178,12 @@ lsblk                                          # 应出现 /dev/sda
 
 ## 7. 实测结果
 
+接口测速（SATA III 6 Gbps，接口理论上限约 600 MB/s）：
+|  | 实测 |
+| 读 | 约 480–492 MB/s
+| 写 | 约 430–477 MB/s
+总结：读 ≈ 490 MB/s，写 ≈ 450 MB/s 不谈理论这个结果符合SATA3实际满速的结果
+
 ```
 ata1: SATA link up 6.0 Gbps (SStatus 133 SControl 300)
 ata1.00: ATA-8: LITEON CV3-8D512-11 SATA 512GB, T89110D, max UDMA/133
